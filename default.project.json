@@ -1,6 +1,20 @@
 {
   "name": "BLuau",
   "tree": {
-    "$className": "DataModel"
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "$path": "BLuau/ReplicatedStorage"
+    },
+
+    "ServerScriptService": {
+      "$path": "BLuau/ServerScriptService"
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "$path": "BLuau/StarterPlayerScripts"
+      }
+    }
   }
 }
