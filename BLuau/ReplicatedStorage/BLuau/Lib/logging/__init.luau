@@ -4,7 +4,7 @@ and its comments.
 
 Copyright (C) 2025-2025 BlockGuard SF. All Rights Reserved.
 
-To use, simply 'import logging' and log away!
+To use, simply 'require(logging.__init)' and log away!
 --]]
 
 --[[
