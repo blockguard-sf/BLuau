@@ -1,7 +1,12 @@
-local logging = require(game.ReplicatedStorage:WaitForChild('BLuau'):WaitForChild("Lib"):WaitForChild("logging"):WaitForChild("__init"))
-local logging_handlers = require(game.ReplicatedStorage:WaitForChild('BLuau'):WaitForChild("Lib"):WaitForChild("logging"):WaitForChild("handlers"))
+local rbxdss = require(game.ReplicatedStorage:WaitForChild('BLuau'):WaitForChild("Lib"):WaitForChild("rbxdss"):WaitForChild("__init"))
+local Players = game:GetService("Players")
 
-logging.log("Test warn message", "warn")
-logging.log("Test info message", "info")
+local function onPlayerAdded(player)
+    local t, _ = rbxdss:GetAsync(player, "test")
+    print(t)
+    rbxdss:SetAsync(player, "test", 25687)
+    local a, _ = rbxdss:GetAsync(player, "test")
+    print(a)
+end
 
-print(logging.GetLog())
+Players.PlayerAdded:Connect(onPlayerAdded)
