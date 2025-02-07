@@ -22,12 +22,20 @@ local logger = require(Package:FindFirstChild("logger"))
 
 local Module = {}
 Module.__index = Module
+Module.__threshold = handlers:GetLevel().INFO
+Module.__logger = true
 
 --- Determines the current execution side (client or server).
 --- @return string side The current execution side, either "CLIENT" or "SERVER".
 local function __recoverSide()
     local clientSide = RunService:IsClient()
     return if clientSide then "CLIENT" else "SERVER"
+end
+
+--- Sets the logging threshold to the specified log level.
+--- @param level string The log level to set as the threshold.
+local function __setThreshold(level: string)
+    Module.__threshold = handlers:GetLevel(level)
 end
 
 --- Checks if the provided log level is valid.
@@ -63,7 +71,7 @@ function Module.log(message: string, level: string)
         level = __isValidLevel(level)
     }, Module)
     
-    if self.level then
+    if self.level and self.level >= Module.__threshold then
         self.logEntry = __processLog(self.source, message)
         if self.level >= handlers:GetLevel("WARN") then
             warn(self.logEntry)
@@ -73,6 +81,27 @@ function Module.log(message: string, level: string)
     end
 
     logger:SetLog(self.level, self.logEntry)
+    return self
+end
+
+--- Configures the logging module with the specified logger and log level.
+--- @param logger boolean? Whether to enable or disable the logger.
+--- @param level string? The log level to set as the threshold.
+--- @return table|boolean The module instance if successful, or false if invalid values are provided.
+function Module.config(logger: boolean?, level: string?)
+    local self = setmetatable({
+        logger = if logger ~= nil then logger else Module.__logger;
+        level = if level ~= nil then level else Module.__threshold
+    }, Module)
+    
+    if not __isValidLevel(self.level) or type(logger) ~= "boolean" then
+        logger.log("Invalid value.", "WARN")
+        return false
+    end
+
+    Module.__logger = self.logger
+    Module.__threshold = handlers:GetLevel(self.level)
+
     return self
 end
 
