@@ -32,12 +32,6 @@ local function __recoverSide()
     return if clientSide then "CLIENT" else "SERVER"
 end
 
---- Sets the logging threshold to the specified log level.
---- @param level string The log level to set as the threshold.
-local function __setThreshold(level: string)
-    Module.__threshold = handlers:GetLevel(level)
-end
-
 --- Checks if the provided log level is valid.
 --- @param level string The name of the log level to check.
 --- @return number|boolean The priority of the log level if valid, or false if invalid.
@@ -47,7 +41,18 @@ local function __isValidLevel(level: string)
         return checkLevel
     end
 
+    warn("[LOGGING] - Invalid log level: " .. level)
     return false
+end
+
+--- Sets the logging threshold to the specified log level.
+--- @param level string The log level to set as the threshold.
+local function __setThreshold(level: string)
+    if __isValidLevel(level) then
+        Module.__threshold = handlers:GetLevel(level)
+    else
+        warn("[LOGGING] - Invalid log level for threshold: " .. level)
+    end
 end
 
 --- Processes a log entry with the given source and message.
@@ -55,8 +60,9 @@ end
 --- @param source string The source of the log entry.
 --- @param message string The message of the log entry.
 --- @return string The formatted log entry or an error message.
-local function __processLog(source, message)
-    return handlers.__construct(source, message) or "Log processing failed"
+local function __processLog(source: string, message: string)
+    local logEntrty, _ = handlers.__construct(source, message)
+    return logEntrty or "Log processing failed"
 end
 
 --- Logs a message with the specified log level.
@@ -78,10 +84,10 @@ function Module.log(message: string, level: string)
         else
             print(self.logEntry)
         end
-    end
 
-    if Module.__logger then
-        logger:SetLog(self.level, self.logEntry)
+        if Module.__logger then
+            logger:SetLog(level, self.logEntry)
+        end
     end
     return self
 end
@@ -97,12 +103,12 @@ function Module.config(logger: boolean?, level: string?)
     }, Module)
     
     if not __isValidLevel(self.level) or type(logger) ~= "boolean" then
-        logger.log("Invalid value.", "WARN")
+        warn("[LOGGING] - Invalid configuration values.")
         return false
     end
 
     Module.__logger = self.logger
-    Module.__threshold = handlers:GetLevel(self.level)
+    __setThreshold(level)
 
     return self
 end
@@ -113,14 +119,24 @@ end
 --- @param priority number The priority value of the new log level.
 --- @param autoCorrect boolean Whether to enable auto-correction of conflicting priorities.
 --- @return boolean success True if the log level was added successfully.
-function Module.addLevel(level: string, priority: string, autoCorrect: boolean)
-    return handlers.add(level, priority, autoCorrect)
+function Module.addLevel(level: string, priority: string, autoCorrect: boolean?)
+    local success, result = handlers.add(level, priority, autoCorrect)
+    if not success then
+        warn("[LOGGING] - Failed to add log level: " .. result)
+    end
+    return result
 end
 
 --- Retrieves all log entries from the logger.
 --- @return table The table containing all log entries.
 function Module:GetLog()
     return logger:GetLog()
+end
+
+--- Clears all log entries from the logger.
+--- @return boolean True if the log was cleared successfully.
+function Module:ClearLog()
+    return logger:ClearLog()
 end
 
 return Module

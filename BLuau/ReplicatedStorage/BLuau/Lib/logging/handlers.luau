@@ -26,6 +26,11 @@ Module.__index = Module
 --- @param autoCorrect boolean Whether to enable auto-correction of conflicting priorities.
 --- @return table|boolean validatedArguments A table containing the validated level and priority, or false if validation fails.
 local function __validLevel(level, priority, autoCorrect)
+    if type(level) ~= "string" or type(priority) ~= "number" then
+        warn("[LOGGING] - Invalid input types for level or priority.")
+        return false
+    end
+
     local validatedArguments = {}
     for name, index in pairs(__levels) do
         if name == level then
@@ -66,6 +71,12 @@ function Module.__construct(source: string, message: string)
     local self = setmetatable({
         timestamp = __timestamp()
     }, Module)
+
+    if type(source) ~= "string" or type(message) ~= "string" then
+        warn("[LOGGING] - Invalid input types for source or message.")
+        return "Invalid log construction", nil
+    end
+
     return __internal.formatString("[%s] [%s] - %s", self.timestamp, source, message), self
 end
 
@@ -75,7 +86,7 @@ end
 --- @param priority number The priority value of the new log level.
 --- @param autoCorrect boolean Whether to enable auto-correction of conflicting priorities.
 --- @return boolean success True if the log level was added successfully.
-function Module.add(level: string, priority: number, autoCorrect: boolean)
+function Module.add(level: string, priority: number, autoCorrect: boolean?)
     local self = setmetatable({
         level = string.upper(level);
         priority = priority;
@@ -90,6 +101,7 @@ function Module.add(level: string, priority: number, autoCorrect: boolean)
         __levels[self.level] = self.priority
         return true, self
     end
+    warn("[LOGGING] - Failed to add log level: " .. self.level)
     return false, self
 end
 
