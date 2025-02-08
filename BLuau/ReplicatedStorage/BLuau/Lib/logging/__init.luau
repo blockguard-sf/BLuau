@@ -80,7 +80,9 @@ function Module.log(message: string, level: string)
         end
     end
 
-    logger:SetLog(self.level, self.logEntry)
+    if Module.__logger then
+        logger:SetLog(self.level, self.logEntry)
+    end
     return self
 end
 
