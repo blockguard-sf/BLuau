@@ -28,14 +28,16 @@ local BLuau = {}
 -- Define the base path for modules (for explicit loading if needed)
 local BASE_PATH = "BLuau.Lib."
 
-local LIB_DIRECTORY = game:GetService("ReplicatedStorage"):WaitForChild("BLuau"):FindFirstChild("Lib")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local BLuauDirectory = ReplicatedStorage:WaitForChild("BLuau")
+local LIB_DIRECTORY = BLuauDirectory:FindFirstChild("Lib")
 if not LIB_DIRECTORY then
     error("[BLuau] ERROR: The directory 'Lib' was not found in ReplicatedStorage.")
 end
 
 -- Iterate over all children of "Lib" and load modules dynamically
 for _, module in ipairs(LIB_DIRECTORY:GetChildren()) do
-    if module:IsA("Folder") and module.__init ~= true then
+    if module:IsA("Folder") and module.__init ~= nil then
         local success, result = pcall(require, module.__init)
         if success then
             BLuau[module.Name] = result
