@@ -6,28 +6,49 @@
 --]]
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local BLuau = ReplicatedStorage:WaitForChild("BLuau")
-local Lib = BLuau:WaitForChild("Lib")
+local BLuau = require(ReplicatedStorage:WaitForChild("BLuau"):WaitForChild("Include"):FindFirstChild("BLuau"))
 
-local rbxdss = require(Lib:WaitForChild("rbxdss").__init)
+local rbxdss = BLuau.rbxdss
 
 local PERMISSIONS_DATASTORE = "AuthzPlrPerm"
 
 local Module = {}
 Module.__index = Module
 
+--- Retrieves the permissions for a player from the datastore.
+--- @param player Player The player to retrieve permissions for.
+--- @return table The permissions table.
+local function __getPermissions(player: Player)
+    return rbxdss:GetAsync(player, PERMISSIONS_DATASTORE) or {}
+end
+
+--- Saves the permissions for a player to the datastore.
+--- @param player Player The player to save permissions for.
+--- @param permissions table The permissions table to save.
+local function __savePermissions(player: Player, permissions: table)
+    rbxdss:SetAsync(player, PERMISSIONS_DATASTORE, permissions)
+end
+
+--- Converts a permission to a string if it is not already.
+--- @param permission any The permission to convert.
+--- @return string The permission as a string.
+local function __toPermissionString(permission: any)
+    return type(permission) == "string" and permission or tostring(permission)
+end
+
 --- Adds a permission to the specified player.
 --- @param player Player The player to add the permission to.
 --- @param permission any The permission to add.
 --- @return table The module instance.
 function Module:addPermission(player: Player, permission: any)
-    local self = setmetatable({
-        permissions = rbxdss:GetAsync(player, PERMISSIONS_DATASTORE) or {};
-        permission = if type(permission) == "string" then permission else tostring(permission)
-    }, Module)
+    local permissions = __getPermissions(player)
+    local permissionString = __toPermissionString(permission)
 
-    table.insert(self.permissions, self.permission)
-    rbxdss:SetAsync(player, PERMISSIONS_DATASTORE, self.permissions)
+    if not table.find(permissions, permissionString) then
+        table.insert(self.permissions, self.permission)
+        __savePermissions(player, permissions)
+    end
+
     return self
 end
 
@@ -36,19 +57,15 @@ end
 --- @param permission any The permission to remove.
 --- @return table The module instance.
 function Module:removePermission(player: Player, permission: any)
-    local self = setmetatable({
-        permissions = rbxdss:GetAsync(player, PERMISSIONS_DATASTORE) or {};
-        permission = if type(permission) == "string" then permission else tostring(permission)
-    }, Module)
+    local permissions = __getPermissions(player)
+    local permissionString = __toPermissionString(permission)
+    local index = table.find(permissions, permissionString)
 
-    for index, perm in ipairs(self.permissions) do
-        if perm == self.permission then
-            table.remove(self.permissions, index)
-            break
-        end
+    if index then
+        table.remove(self.permissions, index)
+        __savePermissions(player, permissions)
     end
 
-    rbxdss:SetAsync(player, PERMISSIONS_DATASTORE, self.permissions)
     return self
 end
 

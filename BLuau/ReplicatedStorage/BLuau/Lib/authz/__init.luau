@@ -21,4 +21,19 @@ Module.Manager = require(script.Parent.manager)
 Module.Roles = require(script.Parent.roles)
 Module.Datastore = require(script.Parent.datastore)
 
-return Module
+--- Checks if the required submodules are loaded.
+--- Throws an error if any of the required submodules are missing.
+local function __checkModules()
+    if not Module.Manager or not Module.Roles or not Module.Datastore then
+        error("Failed to load one or more required modules.")
+    end
+end
+
+--- Initializes the module by checking the required submodules.
+--- @return table The module instance.
+function Module:init()
+    __checkModules()
+    return self
+end
+
+return Module:init()
