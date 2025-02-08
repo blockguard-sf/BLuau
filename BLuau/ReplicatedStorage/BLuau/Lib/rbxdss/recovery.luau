@@ -6,9 +6,9 @@
 
 local DataStoreService = game:GetService("DataStoreService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Lib = ReplicatedStorage:FindFirstChild("BLuau"):FindFirstChild("Lib")
+local BLuau = require(ReplicatedStorage:WaitForChild("BLuau"):WaitForChild("Include"):FindFirstChild("BLuau"))
 
-local logging = require(Lib:WaitForChild("logging").__init)
+local logging = BLuau.logging
 
 local Module = {}
 Module.__index = Module
@@ -17,23 +17,31 @@ Module.__index = Module
 --- Logs the process and handles any errors that occur.
 --- @param player Player The player for whom to retrieve data.
 --- @param dataStore string The name of the data store to retrieve data from.
---- @return table|nil The data retrieved and the module instance if successful, or nil if an error occurred.
+--- @return table|nil The data retrieved if successful, or nil if an error occurred.
+--- @return nil, string Error message if the operation fails.
 function Module:GetAsync(player: Player, dataStore: string)
+    if not player or not dataStore then
+        return nil, "Invalid parameters"
+    end
+    
     local self = setmetatable({
         dataStore = DataStoreService:GetDataStore(dataStore)
     }, Module)
 
-    logging.log("Data recovery required requested.", "debug")
-    local success, err = pcall(function()
+    logging.log("Data recovery requested.", "DEBUG")
+
+    local success, result = pcall(function()
         self.data = self.dataStore:GetAsync(player.UserId)
-        logging.log("The request data was successfully retrieved!", "debug")
+        logging.log("The request data was successfully retrieved!", "DEBUG")
+        return self.data
     end)
 
     if not success then
-        logging.log(err, "warn")
+        logging.log(result, "WARN")
+        return nil, result
     end
     
-    return self.data or nil, self
+    return result
 end
 
 return Module

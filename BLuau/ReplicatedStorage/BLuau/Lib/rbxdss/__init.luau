@@ -25,8 +25,21 @@ Module.__index = Module
 --- @param player Player The player for whom to retrieve data.
 --- @param dataStore string The name of the data store to retrieve data from.
 --- @return any The result of the asynchronous recovery operation.
+--- @return nil, string Error message if the operation fails.
 function Module:GetAsync(player: Player, dataStore: string)
-    return recovery:GetAsync(player, dataStore)
+    if not player or not dataStore then
+        return nil, "Invalid parameters"
+    end
+
+    local success, result = pcall(function()
+        return recovery:GetAsync(player, dataStore)
+    end)
+
+    if not success then
+        return nil, result
+    end
+
+    return result
 end
 
 --- Saves data asynchronously for a specific player and data store.
@@ -34,9 +47,22 @@ end
 --- @param player Player The player for whom to save data.
 --- @param dataStore string The name of the data store to save data to.
 --- @param objectValue any The data to save.
---- @return table The module instance.
-function Module:SetAsync(player: Player, dataStore: string, objectValue)
-    return backup:SetAsync(player, dataStore, objectValue)
+--- @return boolean Success status of the operation.
+--- @return nil, string Error message if the operation fails.
+function Module:SetAsync(player: Player, dataStore: string, objectValue: any)
+    if not player or not dataStore or objectValue == nil then
+        return false, "Invalid parameters"
+    end
+
+    local success, result = pcall(function()
+        return backup:SetAsync(player, dataStore, objectValue)
+    end)
+
+    if not success then
+        return false, result
+    end
+
+    return true
 end
 
 return Module

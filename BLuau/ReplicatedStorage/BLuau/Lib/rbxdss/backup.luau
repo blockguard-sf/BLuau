@@ -6,9 +6,9 @@
 
 local DataStoreService = game:GetService("DataStoreService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Lib = ReplicatedStorage:FindFirstChild("BLuau"):FindFirstChild("Lib")
+local BLuau = require(ReplicatedStorage:WaitForChild("BLuau"):WaitForChild("Include"):FindFirstChild("BLuau"))
 
-local logging = require(Lib:WaitForChild("logging").__init)
+local logging = BLuau.logging
 
 local Module = {}
 Module.__index = Module
@@ -18,24 +18,30 @@ Module.__index = Module
 --- @param player Player The player for whom to save data.
 --- @param dataStore string The name of the data store to save data to.
 --- @param objectValue any The data to save.
---- @return table The module instance.
-function Module:SetAsync(player: Player, dataStore: string, objectValue)
+--- @return boolean Success status of the operation.
+--- @return nil, string Error message if the operation fails.
+function Module:SetAsync(player: Player, dataStore: string, objectValue: any)
+    if not player or not dataStore or objectValue == nil then
+        return false, "Invalid parameters"
+    end
+
     local self = setmetatable({
         dataStore = DataStoreService:GetDataStore(dataStore)
     }, Module)
 
-    if objectValue then
-        logging.log("Data backup in progress...", "debug")
-        local success, err = pcall(function()
-            self.dataStore:SetAsync(player.UserId, objectValue)
-            logging.log("The data has been saved successfully!", "debug")
-        end)
+    logging.log("Data backup in progress...", "DEBUG")
 
-        if not success then
-            logging.log(`Error saving data for player {player.Name}: {err}`, "WARN")
-        end
+    local success, err = pcall(function()
+        self.dataStore:SetAsync(player.UserId, objectValue)
+        logging.log("The data has been saved successfully!", "DEBUG")
+    end)
+
+    if not success then
+        logging.log(string.format("Error saving data for player %s: %s", player.Name, err), "warn")
+        return false, err
     end
-    return self
+    
+    return true
 end
 
 return Module
