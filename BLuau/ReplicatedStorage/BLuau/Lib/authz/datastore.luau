@@ -5,10 +5,10 @@
 --]]
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local BLuau = require(ReplicatedStorage:WaitForChild("BLuau"):WaitForChild("Include"):FindFirstChild("BLuau"))
+local Lib = ReplicatedStorage:WaitForChild("BLuau"):WaitForChild("Lib")
 
-local rbxdss = BLuau.rbxdss
-local logging = BLuau.logging
+local rbxdss = require(Lib:WaitForChild("rbxdss").__init)
+local logging = require(Lib:WaitForChild("logging").__init)
 
 local PERMISSIONS_DATASTORE = "AuthzPlrPerm"
 
