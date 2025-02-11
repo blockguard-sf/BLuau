@@ -28,6 +28,9 @@ local BLuau = {}
 -- Define the base path for modules (for explicit loading if needed)
 local BASE_PATH = "BLuau.Lib."
 
+-- Defines priority modules
+local PRIORITY_MODULES = {"logging"}
+
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local BLuauDirectory = ReplicatedStorage:WaitForChild("BLuau")
 local LIB_DIRECTORY = BLuauDirectory:FindFirstChild("Lib")
@@ -35,10 +38,40 @@ if not LIB_DIRECTORY then
     error("[BLuau] ERROR: The directory 'Lib' was not found in ReplicatedStorage.")
 end
 
+--- Checks if the given module is a priority module.
+--- @param module Instance The module to check.
+--- @return boolean True if the module is a priority module, false otherwise.
+local function __checkPriorityModule(module: Instance)
+    for _, moduleName in pairs(PRIORITY_MODULES) do
+        if moduleName == module.Name then
+            return true
+        end
+    end
+    return false
+end
+
+--- Loads the specified module using pcall to handle errors.
+--- @param module Instance The module to load.
+--- @return boolean, any True and the module if successful, false and the error message if failed.
+local function __loadModule(module: Instance)
+    return pcall(require, module)
+end
+
+--- Loads priority modules and adds them to the BLuau table.
+for _, module_name in pairs(PRIORITY_MODULES) do
+    local success, result = __loadModule(if LIB_DIRECTORY[module_name]:IsA("Folder") then LIB_DIRECTORY[module_name].__init else LIB_DIRECTORY[module_name])
+    if success then
+        BLuau[module_name] = result
+    else
+        warn(string.format("[BLuau] WARNING: Failed to load priority module '%s'. Error: %s", module_name, result))
+    end
+end
+
 -- Iterate over all children of "Lib" and load modules dynamically
 for _, module in ipairs(LIB_DIRECTORY:GetChildren()) do
-    if module:IsA("Folder") and module.__init ~= nil then
-        local success, result = pcall(require, module.__init)
+    local priorityModule = __checkPriorityModule(module)
+    if not priorityModule then
+        local success, result = __loadModule(if module:IsA("Folder") then module.__init else module)
         if success then
             BLuau[module.Name] = result
         else
