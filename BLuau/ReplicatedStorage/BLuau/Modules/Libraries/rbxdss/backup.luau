@@ -6,9 +6,9 @@
 
 local DataStoreService = game:GetService("DataStoreService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Lib = ReplicatedStorage:WaitForChild("BLuau"):WaitForChild("Lib")
+local Libraries = ReplicatedStorage:WaitForChild("BLuau"):WaitForChild("Modules"):FindFirstChild("Libraries")
 
-local logging = require(Lib:WaitForChild("logging").__init)
+local logging = require(Libraries:WaitForChild("logging").__init)
 
 local Module = {}
 Module.__index = Module
