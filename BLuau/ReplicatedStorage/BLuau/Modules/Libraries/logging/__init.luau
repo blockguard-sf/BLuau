@@ -61,7 +61,6 @@ end
 --- @param message string The message of the log entry.
 --- @return string The formatted log entry or an error message.
 local function __processLog(source: string, message: string)
-    print(type(source), type(message))
     local log_entry, _ = handlers:__construct(source, message)
     return log_entry or "Log processing failed"
 end
@@ -73,7 +72,6 @@ end
 --- @param level string The log level for the message.
 --- @return table self The log entry object.
 function Module:log(message: string, level: string)
-    print(type(message))
     local self = setmetatable({
         source = __recoverSide();
         level = __isValidLevel(level)

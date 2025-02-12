@@ -68,7 +68,6 @@ end
 --- @return string formatted_log The formatted log entry string.
 --- @return table self The constructed log entry object.
 function Module:__construct(source: string, message: string)
-    print(type(source), type(message))
     local self = setmetatable({
         timestamp = __getTimestamp()
     }, Module)
