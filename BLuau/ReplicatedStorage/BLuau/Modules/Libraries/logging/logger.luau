@@ -10,14 +10,14 @@ Module["__data"] = {}
 
 --- Sets a log entry for the specified log level.
 --- @param level string The log level for the entry.
---- @param logEntry string The log entry to set.
-function Module:SetLog(level: string, logEntry: string)
-    if type(level) ~= "string" or type(logEntry) ~= "string" then
-        warn("[LOGGING] - Invalid input types for level or logEntry.")
+--- @param log_entry string The log entry to set.
+function Module:SetLog(level: string, log_entry: string)
+    if type(level) ~= "string" or type(log_entry) ~= "string" then
+        warn("[LOGGING] - Invalid input types for level or log_entry.")
         return false
     end
 
-    Module["__data"][level] = logEntry
+    Module["__data"][level] = log_entry
     return true
 end
 

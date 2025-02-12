@@ -1,7 +1,7 @@
 --[[
     handlers.luau
     Utility file for the "logging" package.
-    This file constains a log level management and a formatting moduLe.
+    This file contains a log level management and a formatting module.
 --]]
 
 local __levels = {
@@ -24,14 +24,14 @@ Module.__index = Module
 --- @param level string The name of the log level to validate.
 --- @param priority number The priority value of the log level to validate.
 --- @param autoCorrect boolean Whether to enable auto-correction of conflicting priorities.
---- @return table|boolean validatedArguments A table containing the validated level and priority, or false if validation fails.
+--- @return table|boolean validated_arguments A table containing the validated level and priority, or false if validation fails.
 local function __validLevel(level, priority, autoCorrect)
     if type(level) ~= "string" or type(priority) ~= "number" then
         warn("[LOGGING] - Invalid input types for level or priority.")
         return false
     end
 
-    local validatedArguments = {}
+    local validated_arguments = {}
     for name, index in pairs(__levels) do
         if name == level then
             warn("[LOGGING] - Duplicate log level name: " .. level)
@@ -41,23 +41,23 @@ local function __validLevel(level, priority, autoCorrect)
         if index == priority then
             if autoCorrect then
                 priority = #__levels + 1
-                validatedArguments["Priority"] = priority
+                validated_arguments["Priority"] = priority
             else
                 warn("[LOGGING] - Duplicate priority detected: " .. priority)
                 return false
             end
         end
     end
-    validatedArguments["Level"] = level
-    if not validatedArguments["Priority"] then
-        validatedArguments["Priority"] = priority
+    validated_arguments["Level"] = level
+    if not validated_arguments["Priority"] then
+        validated_arguments["Priority"] = priority
     end
-    return validatedArguments
+    return validated_arguments
 end
 
 --- Retrieves the current timestamp in a predefined format.
 --- @return string The formatted current timestamp.
-local function __timestamp()
+local function __getTimestamp()
     return __internal.timestamp("%Y-%m-%d %H:%M:%S")
 end
 
@@ -65,11 +65,12 @@ end
 --- Includes a timestamp in the predefined format.
 --- @param source string The source of the log entry.
 --- @param message string The message of the log entry.
---- @return string formattedLog The formatted log entry string.
+--- @return string formatted_log The formatted log entry string.
 --- @return table self The constructed log entry object.
-function Module.__construct(source: string, message: string)
+function Module:__construct(source: string, message: string)
+    print(type(source), type(message))
     local self = setmetatable({
-        timestamp = __timestamp()
+        timestamp = __getTimestamp()
     }, Module)
 
     if type(source) ~= "string" or type(message) ~= "string" then
@@ -81,12 +82,12 @@ function Module.__construct(source: string, message: string)
 end
 
 --- Adds a new log level with the specified priority.
---- Automatically adjusts priority if a conflict exists and autoCorrection is enabled.
+--- Automatically adjusts priority if a conflict exists and auto-correction is enabled.
 --- @param level string The name of the new log level.
 --- @param priority number The priority value of the new log level.
 --- @param autoCorrect boolean Whether to enable auto-correction of conflicting priorities.
 --- @return boolean success True if the log level was added successfully.
-function Module.add(level: string, priority: number, autoCorrect: boolean?)
+function Module:addLevel(level: string, priority: number, autoCorrect: boolean?)
     local self = setmetatable({
         level = string.upper(level);
         priority = priority;
@@ -109,7 +110,7 @@ end
 --- If the level is not found, it returns a warning and the complete list of levels.
 --- @param level string The name of the log level to retrieve.
 --- @return number|table The priority of the specified log level or the complete list of levels if no specific level is provided.
-function Module:GetLevel(level)
+function Module:GetLevel(level: string?)
     if level ~= nil then
         level = string.upper(level)
         if __levels[level] ~= nil then

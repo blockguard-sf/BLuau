@@ -61,8 +61,9 @@ end
 --- @param message string The message of the log entry.
 --- @return string The formatted log entry or an error message.
 local function __processLog(source: string, message: string)
-    local logEntrty, _ = handlers.__construct(source, message)
-    return logEntrty or "Log processing failed"
+    print(type(source), type(message))
+    local log_entry, _ = handlers:__construct(source, message)
+    return log_entry or "Log processing failed"
 end
 
 --- Logs a message with the specified log level.
@@ -71,22 +72,23 @@ end
 --- @param message string The message to log.
 --- @param level string The log level for the message.
 --- @return table self The log entry object.
-function Module.log(message: string, level: string)
+function Module:log(message: string, level: string)
+    print(type(message))
     local self = setmetatable({
         source = __recoverSide();
         level = __isValidLevel(level)
     }, Module)
     
     if self.level and self.level >= Module.__threshold then
-        self.logEntry = __processLog(self.source, message)
+        self.log_entry = __processLog(self.source, message)
         if self.level >= handlers:GetLevel("WARN") then
-            warn(self.logEntry)
+            warn(self.log_entry)
         else
-            print(self.logEntry)
+            print(self.log_entry)
         end
 
         if Module.__logger then
-            logger:SetLog(level, self.logEntry)
+            logger:SetLog(level, self.log_entry)
         end
     end
     return self
@@ -96,7 +98,7 @@ end
 --- @param logger boolean? Whether to enable or disable the logger.
 --- @param level string? The log level to set as the threshold.
 --- @return table|boolean The module instance if successful, or false if invalid values are provided.
-function Module.config(logger: boolean?, level: string?)
+function Module:config(logger: boolean?, level: string?)
     local self = setmetatable({
         logger = if logger ~= nil then logger else Module.__logger;
         level = if level ~= nil then level else Module.__threshold
@@ -119,8 +121,8 @@ end
 --- @param priority number The priority value of the new log level.
 --- @param autoCorrect boolean Whether to enable auto-correction of conflicting priorities.
 --- @return boolean success True if the log level was added successfully.
-function Module.addLevel(level: string, priority: string, autoCorrect: boolean?)
-    local success, result = handlers.add(level, priority, autoCorrect)
+function Module:addLevel(level: string, priority: string, autoCorrect: boolean?)
+    local success, result = handlers:addLevel(level, priority, autoCorrect)
     if not success then
         warn("[LOGGING] - Failed to add log level: " .. result)
     end
