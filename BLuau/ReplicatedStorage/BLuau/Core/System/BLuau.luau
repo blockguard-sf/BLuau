@@ -33,8 +33,8 @@ local PRIORITY_MODULES = {"logging"}
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local BLuauDirectory = ReplicatedStorage:WaitForChild("BLuau")
-local LIB_DIRECTORY = BLuauDirectory:FindFirstChild("Lib")
-if not LIB_DIRECTORY then
+local LIBRARIES_DIRECTORY = BLuauDirectory:WaitForChild("Modules"):FindFirstChild("Libraries")
+if not LIBRARIES_DIRECTORY then
     error("[BLuau] ERROR: The directory 'Lib' was not found in ReplicatedStorage.")
 end
 
@@ -59,7 +59,7 @@ end
 
 --- Loads priority modules and adds them to the BLuau table.
 for _, module_name in pairs(PRIORITY_MODULES) do
-    local success, result = __loadModule(if LIB_DIRECTORY[module_name]:IsA("Folder") then LIB_DIRECTORY[module_name].__init else LIB_DIRECTORY[module_name])
+    local success, result = __loadModule(if LIBRARIES_DIRECTORY[module_name]:IsA("Folder") then LIBRARIES_DIRECTORY[module_name].__init else LIBRARIES_DIRECTORY[module_name])
     if success then
         BLuau[module_name] = result
     else
@@ -68,7 +68,7 @@ for _, module_name in pairs(PRIORITY_MODULES) do
 end
 
 -- Iterate over all children of "Lib" and load modules dynamically
-for _, module in ipairs(LIB_DIRECTORY:GetChildren()) do
+for _, module in ipairs(LIBRARIES_DIRECTORY:GetChildren()) do
     local priorityModule = __checkPriorityModule(module)
     if not priorityModule then
         local success, result = __loadModule(if module:IsA("Folder") then module.__init else module)
@@ -87,5 +87,7 @@ end
 --]]
 _G.__BLUAU_LOADED = true
 _G.__BLUAU_INSTANCE = BLuau
+
+print(BLuau)
 
 return BLuau
