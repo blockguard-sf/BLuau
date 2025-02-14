@@ -20,12 +20,13 @@
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local BLuau_Rojo = ReplicatedStorage:WaitForChild("BLuau_Rojo")
+
 local LIBRARIES_DIRECTORY = BLuau_Rojo:FindFirstChild("Libraries")
 if not LIBRARIES_DIRECTORY then
     error("[BLuauLoader] ERROR : The directory 'Libraries' was not found in ReplicatedStorage.")
 end
 
-local function __loadModule(moduleScript: Instance) : (boolean, any)
+local function __loadModule(moduleScript: Instance): (boolean & any)
     return pcall(require, moduleScript)
 end
 
