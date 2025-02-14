@@ -1,3 +1,6 @@
 {
-    "rojo-ui.iconFolder": "BLuau/"
+    "rojo-ui.iconFolder": "BLuau/",
+    "robloxLsp.diagnostics.disable": [
+        "redefined-local"
+    ]
 }
