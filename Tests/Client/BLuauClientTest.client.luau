@@ -1,4 +1,4 @@
-local BLuau = require(game:GetService("ReplicatedStorage"):WaitForChild("BLuau_Rojo").Core.System.Loader)
+local BLuau = require(game:GetService("ReplicatedStorage"):WaitForChild("BLuau_Rojo").BLibraries)
 
 local Profiler = BLuau.profiler
 
