@@ -19,29 +19,31 @@
 --]]
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local BLuau_Rojo = ReplicatedStorage:WaitForChild("BLuau_Rojo")
+local BLuau_Rojo: Folder = ReplicatedStorage:WaitForChild("BLuau_Rojo")
 
 local LIBRARIES_DIRECTORY = BLuau_Rojo:FindFirstChild("Libraries")
 if not LIBRARIES_DIRECTORY then
-    error("[BLuauLoader] ERROR : The directory 'Libraries' was not found in ReplicatedStorage.")
+	error("[BLuauLoader] ERROR : The directory 'Libraries' was not found in ReplicatedStorage.")
 end
 
-local function __loadModule(moduleScript: Instance): (boolean & any)
-    return pcall(require, moduleScript)
+local function __loadModule(moduleScript: Instance): boolean & any
+	return pcall(require, moduleScript)
 end
 
 local Loader = {}
 
 for _, moduleScript in pairs(LIBRARIES_DIRECTORY:GetChildren()) do
-    if moduleScript:IsA("Folder") and moduleScript:FindFirstChild("__init") or moduleScript:IsA("ModuleScript") then
-        local success, result = __loadModule(if moduleScript:IsA("Folder") then moduleScript.__init else moduleScript)
+	if moduleScript:IsA("Folder") and moduleScript:FindFirstChild("__init") or moduleScript:IsA("ModuleScript") then
+		local success: any & boolean, result: any & boolean = __loadModule(if moduleScript:IsA("Folder") then moduleScript.__init else moduleScript)
 
-        if success then
-            Loader[moduleScript.Name] = result
-        else
-            warn(string.format("[BLuauLoader] WARNING: Failed to load module '%s'. Error: %s", moduleScript.Name, result))
-        end
-    end
+		if success then
+			Loader[moduleScript.Name] = result
+		else
+			warn(
+				string.format("[BLuauLoader] WARNING: Failed to load module '%s'. Error: %s", moduleScript.Name, result)
+			)
+		end
+	end
 end
 
 return Loader

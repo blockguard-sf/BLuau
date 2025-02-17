@@ -16,9 +16,9 @@
 --]]
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local BLuau_Rojo = ReplicatedStorage:WaitForChild("BLuau_Rojo")
+local BLuau_Rojo: Folder = ReplicatedStorage:WaitForChild("BLuau_Rojo")
 
-local LOADER_DIRECTORY = BLuau_Rojo:WaitForChild("Core"):FindFirstChild("System")
+local LOADER_DIRECTORY: Folder = BLuau_Rojo:WaitForChild("Core"):FindFirstChild("System")
 
 local Loader = require(LOADER_DIRECTORY.Loader)
 
@@ -26,8 +26,8 @@ local BLibraries = {}
 BLibraries.__index = BLibraries
 
 --- Retrieving information from the Module Loader to facilitate their naming.
-for moduleName, value in pairs(Loader) do
-    BLibraries[moduleName] = value
+for moduleName: unknown, value: nil in pairs(Loader) do
+	BLibraries[moduleName] = value
 end
 
 return BLibraries

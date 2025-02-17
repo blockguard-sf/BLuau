@@ -13,29 +13,29 @@ Logger.__data = {}
 
 --- Sets a log entry for the specified log level.
 function Logger.setLog(levelName: string, logEntry: string): boolean
-    if type(levelName) ~= "string" or type(logEntry) ~= "string" then
-        warn("[LOGGING] - Invalid input types for levelName or logEntry")
-        return false
-    end
-    
-    table.insert(Logger.__data, {
-        ["level"] = levelName,
-        ["message"] = logEntry
-    })
-    return true
+	if type(levelName) ~= "string" or type(logEntry) ~= "string" then
+		warn("[LOGGING] - Invalid input types for levelName or logEntry")
+		return false
+	end
+
+	table.insert(Logger.__data, {
+		["level"] = levelName,
+		["message"] = logEntry,
+	})
+	return true
 end
 
 --- Retrieves all log entries.
 function Logger.clear(): boolean
-    local success, errMsg = pcall(function()
-        table.clear(Logger.__data)
-    end)
+	local success: boolean, errMsg: nil = pcall(function(): ()
+		table.clear(Logger.__data)
+	end)
 
-    if not success then
-        warn("[LOGGING] - An error occurred while deleting logs: " .. errMsg)
-        return false
-    end
-    return true
+	if not success then
+		warn("[LOGGING] - An error occurred while deleting logs: " .. errMsg)
+		return false
+	end
+	return true
 end
 
 return Logger

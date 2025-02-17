@@ -13,47 +13,47 @@ Module.__index = Module
 Module.sessions = {}
 
 -- Starts profiling by recording the current time
-function Module.start(label)
-    local startTime = os.clock()
-    if label then
-        Module.sessions[label] = startTime
-    end
-    return startTime
+function Module.start(label: unknown): number
+	local startTime: number = os.clock()
+	if label then
+		Module.sessions[label] = startTime
+	end
+	return startTime
 end
 
 -- Ends profiling and returns the elapsed time
-function Module.stop(labelOrStartTime)
-    local endTime = os.clock()
-    if type(labelOrStartTime) == "string" then
-        local startTime = Module.sessions[labelOrStartTime]
-        if not startTime then
-            error("Module.stop: No session found for label " .. labelOrStartTime)
-        end
-        Module.sessions[labelOrStartTime] = nil
-        return endTime - startTime
-    elseif type(labelOrStartTime) == "number" then
-        return endTime - labelOrStartTime
-    else
-        error("Module.stop: Invalid start time or label")
-    end
+function Module.stop(labelOrStartTime): number
+	local endTime: number = os.clock()
+	if type(labelOrStartTime) == "string" then
+		local startTime: number = Module.sessions[labelOrStartTime]
+		if not startTime then
+			error("Module.stop: No session found for label " .. labelOrStartTime)
+		end
+		Module.sessions[labelOrStartTime] = nil
+		return endTime - startTime
+	elseif type(labelOrStartTime) == "number" then
+		return endTime - labelOrStartTime
+	else
+		error("Module.stop: Invalid start time or label")
+	end
 end
 
 -- Measures the execution time of a function
-function Module.measure(func, ...)
-    if type(func) ~= "function" then
-        error("Module.measure: Expected a function")
-    end
-    local startTime = os.clock()
-    local results = table.pack(func(...))
-    local elapsedTime = os.clock() - startTime
-    return elapsedTime, table.unpack(results, 1, results.n)
+function Module.measure(func: ((...any) -> (...V)) & unknown, ...: any): (number, ...nil)
+	if type(func) ~= "function" then
+		error("Module.measure: Expected a function")
+	end
+	local startTime: number = os.clock()
+	local results: { [number]: nil, n: number } = table.pack(func(...))
+	local elapsedTime: number = os.clock() - startTime
+	return elapsedTime, table.unpack(results, 1, results.n)
 end
 
 -- Prints all active sessions (for debugging purposes)
-function Module.listSessions()
-    for label, startTime in pairs(Module.sessions) do
-        print("Active session:", label, "Started at:", startTime)
-    end
+function Module.listSessions(): ()
+	for label, startTime: number in pairs(Module.sessions) do
+		print("Active session:", label, "Started at:", startTime)
+	end
 end
 
 return Module
