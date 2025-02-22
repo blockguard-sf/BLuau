@@ -1,0 +1,26 @@
+{
+  "name": "BLuau",
+  "tree": {
+    "$className": "DataModel",
+
+    "ServerScriptService": {
+      "$path": "Tests/Server/"
+    },
+
+    "ReplicatedStorage": {
+      "BLuau_Rojo": {
+        "$path": "BLuau/",
+
+        "LICENSE": {
+          "$path": "LICENSE.luau"
+        }
+      }
+    },
+
+    "StarterPlayer":{
+      "StarterPlayerScripts": {
+        "$path": "Tests/Client/"
+      }
+    }
+  }
+}
