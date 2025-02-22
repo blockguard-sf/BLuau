@@ -88,8 +88,6 @@ We have a full overview of the changes in the [What's New in BLuau 1.0](https://
 
 [Documentation for BLuau 1.0](https://github.com/blockguard-sf/BLuau/wiki/BLuau-1.0.0-documentation) is online, updated daily.
 
-For information about building Python's documentation, refer to [Docs/README.md](https://github.com/blockguard-sf/BLuau/tree/release/v1.0/Docs/README.md).
-
 ## Copyright and License Information
 
 Copyright © 2025 BlockGuard SF. All Rights Reserved.
