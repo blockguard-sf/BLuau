@@ -58,8 +58,6 @@ It is designed to be compatible in any type of project, including several varied
 The purpose of this repository is to allow others to contribute and make improvements to BLuau.
 Even if you've never contributed to GitHub before, we would appreciate any contributions that you can provide.
 
-For more complete instructions on contributing to Bluau development, see the [Developer Guide]().
-
 ## Installing PyPIxz and Supported Versions
 
 ### Official Roblox Model (Recommended for beginner)
@@ -84,11 +82,11 @@ $ cp /path/to/bluau/BLuau /path/to/replicatedstorage/of/your/project/
 
 ## What's New
 
-We have a full overview of the changes in the [What's New in BLuau 1.0](https://github.com/blockguard-sf/BLuau/blob/master/CHANGELOG/preview.md) document.
+We have a full overview of the changes in the [What's New in BLuau 1.0](https://github.com/blockguard-sf/BLuau/wiki/What%E2%80%99s-New-In-BLuau-1.0) document.
 
 ## Documentation
 
-[Documentation for BLuau 1.0](https://github.com/blockguard-sf/BLuau/wiki/Documentation) is online, updated daily.
+[Documentation for BLuau 1.0](https://github.com/blockguard-sf/BLuau/wiki/BLuau-1.0.0-documentation) is online, updated daily.
 
 For information about building Python's documentation, refer to [Docs/README.md](https://github.com/blockguard-sf/BLuau/tree/release/v1.0/Docs/README.md).
 
@@ -96,4 +94,4 @@ For information about building Python's documentation, refer to [Docs/README.md]
 
 Copyright © 2025 BlockGuard SF. All Rights Reserved.
 
-See the [LICENSE](https://github.com/blockguard-sf/BLuau/blob/master/LICENSE) for information on the history of this software, terms & conditions for usage, and a DISCLAIMER OF ALL WARRANTIES
+See the [LICENSE](https://github.com/blockguard-sf/BLuau/wiki/History-and-License) for information on the history of this software, terms & conditions for usage, and a DISCLAIMER OF ALL WARRANTIES
