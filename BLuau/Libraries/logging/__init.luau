@@ -83,7 +83,7 @@ function Module.log(message: string, levelName: string): table
 			print(self.logEntry)
 		end
 		if Module.__logger then
-			Logger.setLog(levelName, self.logEntry)
+			Logger:SetLog(levelName, self.logEntry)
 		end
 	end
 	return self
@@ -99,8 +99,11 @@ function Module:__addLevel(level: string, index: number, autoCorrect: boolean?):
 	return result
 end
 
-Module.getLog = Logger.__data
-function Module.clear(): ()
+function Module:GetLog(): {nil}
+	return Logger.__data
+end
+
+function Module:Clear(): ()
 	Logger.clear()
 end
 

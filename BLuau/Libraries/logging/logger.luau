@@ -12,7 +12,7 @@ Logger.__index = Logger
 Logger.__data = {}
 
 --- Sets a log entry for the specified log level.
-function Logger.setLog(levelName: string, logEntry: string): boolean
+function Logger:SetLog(levelName: string, logEntry: string): boolean
 	if type(levelName) ~= "string" or type(logEntry) ~= "string" then
 		warn("[LOGGING] - Invalid input types for levelName or logEntry")
 		return false
@@ -26,7 +26,7 @@ function Logger.setLog(levelName: string, logEntry: string): boolean
 end
 
 --- Retrieves all log entries.
-function Logger.clear(): boolean
+function Logger:Clear(): boolean
 	local success: boolean, errMsg: nil = pcall(function(): ()
 		table.clear(Logger.__data)
 	end)
