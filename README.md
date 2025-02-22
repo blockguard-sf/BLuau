@@ -62,7 +62,7 @@ Even if you've never contributed to GitHub before, we would appreciate any contr
 
 ### Official Roblox Model (Recommended for beginner)
 
-1. Add the [BLuau Model]() to your Toolbox from the **Roblox Creator Hub**.
+1. Add the [BLuau Model](https://create.roblox.com/store/asset/103744813519639/BLuau-10) to your Toolbox from the **Roblox Creator Hub**.
 2. Import **BLuau** into your Experience from the Toolbox in the "**My Models**" category
 
 ### GitHub Releases
