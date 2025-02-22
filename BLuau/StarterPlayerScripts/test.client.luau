@@ -1,2 +1,0 @@
---local notify = require(game.ReplicatedStorage:WaitForChild('BLuau'):WaitForChild("Lib"):WaitForChild("notify"):WaitForChild("__init"))
---notify.show("Title", "Message", 5, "111630714337304", "button")

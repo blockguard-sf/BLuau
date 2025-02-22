@@ -3,17 +3,23 @@
   "tree": {
     "$className": "DataModel",
 
-    "ReplicatedStorage": {
-      "$path": "BLuau/ReplicatedStorage"
-    },
-
     "ServerScriptService": {
-      "$path": "BLuau/ServerScriptService"
+      "$path": "Tests/Server/"
     },
 
-    "StarterPlayer": {
+    "ReplicatedStorage": {
+      "BLuau_Rojo": {
+        "$path": "BLuau/",
+
+        "LICENSE": {
+          "$path": "LICENSE.luau"
+        }
+      }
+    },
+
+    "StarterPlayer":{
       "StarterPlayerScripts": {
-        "$path": "BLuau/StarterPlayerScripts"
+        "$path": "Tests/Client/"
       }
     }
   }
