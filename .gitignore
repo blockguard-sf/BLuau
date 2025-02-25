@@ -42,3 +42,4 @@ luac.out
 BLuau/StarterPlayerScripts/test.client.luau
 BLuau/ServerScriptService/test.server.luau
 BLuau/ServerScriptService/preview.luau
+/docs/node_modules
