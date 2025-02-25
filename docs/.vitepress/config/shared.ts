@@ -10,7 +10,7 @@ export const shared = defineConfig({
     title: 'BLuau',
 
     rewrites: {
-        'BLuau/en/:rest*': ':rest*'
+        'en/:rest*': ':rest*'
     },
 
     lastUpdated: true,
