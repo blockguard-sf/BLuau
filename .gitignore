@@ -44,3 +44,4 @@ BLuau/ServerScriptService/test.server.luau
 BLuau/ServerScriptService/preview.luau
 /docs/node_modules
 /docs/.vitepress/cache
+/docs/.vitepress/dist
