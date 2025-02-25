@@ -8,8 +8,8 @@ export const en = defineConfig({
         nav: nav(),
 
         sidebar: {
-            'BLuau/whatsnew/': { base: 'BLuau/whatsnew/.html', items: sidebarWhatsNew() },
-            'BLuau/api-reference/': { base: 'BLuau/api-reference/.html', items: sidebarAPIReference() }
+            'https://blockguard-sf.github.io/BLuau//whatsnew/': { base: 'https://blockguard-sf.github.io/BLuau/whatsnew/', items: sidebarWhatsNew() },
+            'https://blockguard-sf.github.io/BLuau//api-reference/': { base: 'https://blockguard-sf.github.io/BLuau/api-reference/', items: sidebarAPIReference() }
         },
 
         editLink: {
@@ -28,13 +28,13 @@ function nav() {
     return [
         {
             text: 'What\'s New?',
-            link: 'whatsnew/index.html',
+            link: 'https://blockguard-sf.github.io/BLuau/whatsnew/index.html',
             activeMarch: 'BLuau/whatsnew/'
         },
         {
             text: 'API Reference',
             link: 'api-reference/index.html',
-            activeMarch: 'BLuau/api-reference/'
+            activeMarch: 'https://blockguard-sf.github.io/BLuau/api-reference/'
         },
         {
             text: 'v1.0',
