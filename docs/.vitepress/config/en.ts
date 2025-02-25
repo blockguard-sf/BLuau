@@ -8,8 +8,8 @@ export const en = defineConfig({
         nav: nav(),
 
         sidebar: {
-            'whatsnew/': { base: 'whatsnew/', items: sidebarWhatsNew() },
-            'api-reference/': { base: 'api-reference/', items: sidebarAPIReference() }
+            'BLuau/whatsnew/': { base: 'BLuau/whatsnew/', items: sidebarWhatsNew() },
+            'BLuau/api-reference/': { base: 'BLuau/api-reference/', items: sidebarAPIReference() }
         },
 
         editLink: {
@@ -29,12 +29,12 @@ function nav() {
         {
             text: 'What\'s New?',
             link: 'whatsnew/index',
-            activeMarch: 'whatsnew/'
+            activeMarch: 'BLuau/whatsnew/'
         },
         {
             text: 'API Reference',
             link: 'api-reference/index',
-            activeMarch: 'api-reference/'
+            activeMarch: 'BLuau/api-reference/'
         },
         {
             text: 'v1.0',
