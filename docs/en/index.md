@@ -1,6 +1,7 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
+pageClass: home
 
 title: "BLuau"
 titleTemplate: "An Open Source Library for Roblox"
@@ -12,10 +13,10 @@ hero:
   actions:
     - theme: brand
       text: What's new in BLuau 1.0?
-      link: en/whatsnew/1.0
+      link: BLuau/whatsnew/1.0
     - theme: alt
       text: API Reference
-      link: en/api-reference/index
+      link: BLuau/api-reference/index
   image:
     src: blockguard-logo.png
     alt: BLuau
