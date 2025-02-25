@@ -50,7 +50,7 @@ export const shared = defineConfig({
     },
 
     sitemap: {
-        hostname: 'https://blockguard-sf.github.io/BLuau/',
+        hostname: 'https://blockguard-sf.github.io/BLuau',
         transformItems(items) {
             return items.filter((item) => !item.url.includes('migration'))
         }
