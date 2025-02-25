@@ -5,7 +5,7 @@
     script for BLuau.
 
     To use BLuau, should simply:
-        local BLuau = require(game:GetService("ReplicatedStorage"):WaitForChild("BLuau_Rojo").BLibraries)
+        local BLuau = require(game:GetService("ReplicatedStorage"):WaitForChild("BLuau_Rojo").BLibrary)
 
     and then access module like:
         local logging = BLuau.logging
@@ -22,12 +22,12 @@ local LOADER_DIRECTORY: Folder = BLuau_Rojo:WaitForChild("Core"):FindFirstChild(
 
 local Loader = require(LOADER_DIRECTORY.Loader)
 
-local BLibraries = {}
-BLibraries.__index = BLibraries
+local BLibrary = {}
+BLibrary.__index = BLibrary
 
 --- Retrieving information from the Module Loader to facilitate their naming.
 for moduleName: unknown, value: nil in pairs(Loader) do
-	BLibraries[moduleName] = value
+	BLibrary[moduleName] = value
 end
 
-return BLibraries
+return BLibrary

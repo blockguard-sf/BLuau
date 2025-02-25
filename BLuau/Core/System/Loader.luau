@@ -8,7 +8,7 @@
     automatic discovery.
 
     To use this system, scripts should simply:
-        local BLuau = require(game:GetService("ReplicatedStorage"):WaitForChild("BLuau").BLibraries)
+        local BLuau = require(game:GetService("ReplicatedStorage"):WaitForChild("BLuau").BLibrary)
 
     and then access module like:
         local logging = BLuau.logging
