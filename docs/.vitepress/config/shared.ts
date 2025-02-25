@@ -6,12 +6,12 @@ import {
 } from 'vitepress-plugin-group-icons'
 import { search as frSearch } from './fr'
 
-const basePath = 'C:/RobloxProjects/BlockGuard Software Foundation/BLuau/BLuau/docs/.vitepress/dist/'
+//C:/RobloxProjects/BlockGuard Software Foundation/BLuau/BLuau/docs/.vitepress/dist/
+const basePath = 'https://blockguard-sf.github.io/BLuau/'
 
 export const shared = defineConfig({
     title: 'BLuau',
     base: basePath,
-// https://blockguard-sf.github.io/BLuau/
     rewrites: {
         'en/:rest*': ':rest*'
     },
