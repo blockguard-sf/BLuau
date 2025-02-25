@@ -13,10 +13,10 @@ hero:
   actions:
     - theme: brand
       text: What's new in BLuau 1.0?
-      link: BLuau/whatsnew/1.0
+      link: whatsnew/1.0.html
     - theme: alt
       text: API Reference
-      link: BLuau/api-reference/index
+      link: api-reference/index.html
   image:
     src: blockguard-logo.png
     alt: BLuau

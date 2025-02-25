@@ -8,8 +8,8 @@ export const en = defineConfig({
         nav: nav(),
 
         sidebar: {
-            'BLuau/whatsnew/': { base: 'BLuau/whatsnew/', items: sidebarWhatsNew() },
-            'BLuau/api-reference/': { base: 'BLuau/api-reference/', items: sidebarAPIReference() }
+            'BLuau/whatsnew/': { base: 'BLuau/whatsnew/.html', items: sidebarWhatsNew() },
+            'BLuau/api-reference/': { base: 'BLuau/api-reference/.html', items: sidebarAPIReference() }
         },
 
         editLink: {
@@ -28,12 +28,12 @@ function nav() {
     return [
         {
             text: 'What\'s New?',
-            link: 'whatsnew/index',
+            link: 'whatsnew/index.html',
             activeMarch: 'BLuau/whatsnew/'
         },
         {
             text: 'API Reference',
-            link: 'api-reference/index',
+            link: 'api-reference/index.html',
             activeMarch: 'BLuau/api-reference/'
         },
         {
@@ -58,8 +58,8 @@ function sidebarWhatsNew() {
             text: 'Docs By Versions',
             collapsed: false,
             items: [
-                { text: 'BLuau 1.1 (in development)', link: '1.1' },
-                { text: 'BLuau 1.0 (stable)', link: '1.0' }
+                { text: 'BLuau 1.1 (in development)', link: '1.1.html' },
+                { text: 'BLuau 1.0 (stable)', link: '1.0.html' }
             ]
         }
     ]
@@ -73,17 +73,17 @@ function sidebarAPIReference() {
             items: [
                 { 
                     text: '1. Data Persistence', 
-                    link: 'data-persistence/index',
+                    link: 'data-persistence/index.html',
                     items: [
-                        { text: '1.1. rbxdss', link: 'data-persistence/rbxdss' },
-                        { text: '1.2. authz', link: 'data-persistence/authz' },
+                        { text: '1.1. rbxdss', link: 'data-persistence/rbxdss.html' },
+                        { text: '1.2. authz', link: 'data-persistence/authz.html' },
                     ]
                 },
                 { 
                     text: '2. Data Persistence', 
-                    link: 'allos/index',
+                    link: 'allos/index.html',
                     items: [
-                        { text: '2.1. logging', link: 'allos/logging.md' },
+                        { text: '2.1. logging', link: 'allos/logging.html' },
                     ]
                 },
                 { 

@@ -5,7 +5,6 @@ import { fr } from '../config/fr'
 
 export default defineConfig({
     ...shared,
-    base:'./',
     locales: {
         root: { label: 'English', ...en },
         fr: { label: 'Français', ...fr }

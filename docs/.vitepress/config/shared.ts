@@ -8,6 +8,7 @@ import { search as frSearch } from './fr'
 
 export const shared = defineConfig({
     title: 'BLuau',
+    base: 'https://blockguard-sf.github.io/BLuau/',
 
     rewrites: {
         'en/:rest*': ':rest*'
@@ -50,7 +51,7 @@ export const shared = defineConfig({
     },
 
     sitemap: {
-        hostname: 'https://blockguard-sf.github.io/BLuau',
+        hostname: 'https://blockguard-sf.github.io/BLuau/',
         transformItems(items) {
             return items.filter((item) => !item.url.includes('migration'))
         }
@@ -74,5 +75,18 @@ export const shared = defineConfig({
                 }
             }
         }
+    },
+    vite: {
+      plugins: [
+        groupIconVitePlugin({
+          customIcon: {
+            vitepress: localIconLoader(
+              import.meta.url,
+              '../../public/blockguard-logo-mini.png'
+            ),
+            firebase: 'logos:firebase'
+          }
+        })
+      ]
     }
 })
