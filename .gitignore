@@ -39,4 +39,6 @@ luac.out
 *.x86_64
 *.hex
 
-/Docs/node_modules
+BLuau/StarterPlayerScripts/test.client.luau
+BLuau/ServerScriptService/test.server.luau
+BLuau/ServerScriptService/preview.luau
