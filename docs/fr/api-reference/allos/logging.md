@@ -80,13 +80,12 @@ logging.log("YOUR_MESSAGE", "LEVEL_NAME")
 
 ### Lire les logs
 
-logging.**getLog**()
+logging:**GetLog**()
 
 > Récupère les entrées du journal stockées dans le module Logger.
 
 ### Effacer les logs
 
-
-logging.**clear**()
+logging:**Clear**()
 
 > Efface toutes les entrées du journal enregistrées.

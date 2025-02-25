@@ -80,12 +80,12 @@ logging.log("YOUR_MESSAGE", "LEVEL_NAME")
 
 ### Retrieve Logs  
 
-logging.**getLog**()  
+logging:**GetLog**()  
 
 > Retrieves log entries stored in the Logger module.  
 
 ### Clear Logs  
 
-logging.**clear**()  
+logging:**Clear**()  
 
 > Clears all recorded log entries.  
