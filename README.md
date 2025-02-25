@@ -1,4 +1,4 @@
-This is BLuau version 1.0.0
+This is BLuau version 1.0.1
 ============================
 
 **BLuau** is a Roblox package library manager
@@ -49,7 +49,7 @@ It is designed to be compatible in any type of project, including several varied
 
 - Source Code : https://github.com/blockguard-sf/bluau
 - Issue Tracker : https://github.com/blockguard-sf/bluau/issues
-- Documentation : https://github.com/blockguard-sf/BLuau/wiki
+- Documentation : https://blockguard-sf.github.io/BLuau/
 - Roblox Group: https://www.roblox.com/fr/communities/35439925/blockguard-software-foundation
 - Discord Server : https://discord.gg/WNKh6avffr
 
@@ -82,14 +82,14 @@ $ cp /path/to/bluau/BLuau /path/to/replicatedstorage/of/your/project/
 
 ## What's New
 
-We have a full overview of the changes in the [What's New in BLuau 1.0](https://github.com/blockguard-sf/BLuau/wiki/What%E2%80%99s-New-In-BLuau-1.0) document.
+We have a full overview of the changes in the [What's New in BLuau 1.0](https://blockguard-sf.github.io/BLuau/whatsnew/1.0) document.
 
 ## Documentation
 
-[Documentation for BLuau 1.0](https://github.com/blockguard-sf/BLuau/wiki/BLuau-1.0.0-documentation) is online, updated daily.
+[Documentation for BLuau 1.0](https://blockguard-sf.github.io/BLuau/whatsnew/1.0) is online, updated daily.
 
 ## Copyright and License Information
 
 Copyright © 2025 BlockGuard SF. All Rights Reserved.
 
-See the [LICENSE](https://github.com/blockguard-sf/BLuau/wiki/History-and-License) for information on the history of this software, terms & conditions for usage, and a DISCLAIMER OF ALL WARRANTIES
+See the [LICENSE](https://github.com/blockguard-sf/BLuau/blob/master/LICENSE) for information on the history of this software, terms & conditions for usage, and a DISCLAIMER OF ALL WARRANTIES
