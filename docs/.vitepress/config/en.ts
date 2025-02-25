@@ -1,4 +1,3 @@
-import { createRequire } from 'module'
 import { defineConfig } from 'vitepress'
 
 export const en = defineConfig({
@@ -9,8 +8,8 @@ export const en = defineConfig({
         nav: nav(),
 
         sidebar: {
-            '/whatsnew/': { base: '/whatsnew/', items: sidebarWhatsNew() },
-            '/api-reference/': { base: '/api-reference/', items: sidebarAPIReference() }
+            'whatsnew/': { base: 'whatsnew/', items: sidebarWhatsNew() },
+            'api-reference/': { base: 'api-reference/', items: sidebarAPIReference() }
         },
 
         editLink: {
@@ -29,13 +28,13 @@ function nav() {
     return [
         {
             text: 'What\'s New?',
-            link: '/whatsnew/index',
-            activeMarch: '/whatsnew/'
+            link: 'whatsnew/index',
+            activeMarch: 'whatsnew/'
         },
         {
             text: 'API Reference',
-            link: '/api-reference/index',
-            activeMarch: '/api-reference/'
+            link: 'api-reference/index',
+            activeMarch: 'api-reference/'
         },
         {
             text: 'v1.0',
