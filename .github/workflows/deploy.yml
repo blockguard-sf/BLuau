@@ -7,8 +7,6 @@ on:
   # using the `master` branch as the default branch.
   push:
     branches: [master]
-    paths:
-        - "docs/"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -39,7 +37,7 @@ jobs:
       #     version: 9 # Not needed if you've set "packageManager" in package.json
       # - uses: oven-sh/setup-bun@v1 # Uncomment this if you're using Bun
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: npm # or pnpm / yarn
