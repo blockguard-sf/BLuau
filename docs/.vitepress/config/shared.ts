@@ -11,7 +11,7 @@ const basePath = 'https://blockguard-sf.github.io/BLuau/'
 
 export const shared = defineConfig({
     title: 'BLuau',
-    base: basePath,
+    base: '/conch/',
     rewrites: {
         'en/:rest*': ':rest*'
     },
