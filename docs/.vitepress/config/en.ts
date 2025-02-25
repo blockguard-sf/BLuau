@@ -8,12 +8,12 @@ export const en = defineConfig({
         nav: nav(),
 
         sidebar: {
-            'https://blockguard-sf.github.io/BLuau//whatsnew/': { base: 'https://blockguard-sf.github.io/BLuau/whatsnew/', items: sidebarWhatsNew() },
-            'https://blockguard-sf.github.io/BLuau//api-reference/': { base: 'https://blockguard-sf.github.io/BLuau/api-reference/', items: sidebarAPIReference() }
+            '/whatsnew/': { base: '/whatsnew/', items: sidebarWhatsNew() },
+            '/api-reference/': { base: '/api-reference/', items: sidebarAPIReference() }
         },
 
         editLink: {
-            pattern: 'https://github.com/blockguard-sf/bluau/edit/main/Docs/:path',
+            pattern: 'https://github.com/blockguard-sf/bluau/edit/master/docs/:path',
             text: 'Edit this page on GitHub'
         },
 
@@ -28,13 +28,13 @@ function nav() {
     return [
         {
             text: 'What\'s New?',
-            link: 'https://blockguard-sf.github.io/BLuau/whatsnew/index.html',
-            activeMarch: 'BLuau/whatsnew/'
+            link: '/whatsnew/index.html',
+            activeMarch: '/whatsnew/'
         },
         {
             text: 'API Reference',
-            link: 'api-reference/index.html',
-            activeMarch: 'https://blockguard-sf.github.io/BLuau/api-reference/'
+            link: '/api-reference/index.html',
+            activeMarch: '/api-reference/'
         },
         {
             text: 'v1.0',

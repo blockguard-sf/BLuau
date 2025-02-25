@@ -6,10 +6,12 @@ import {
 } from 'vitepress-plugin-group-icons'
 import { search as frSearch } from './fr'
 
+const basePath = 'C:/RobloxProjects/BlockGuard Software Foundation/BLuau/BLuau/docs/.vitepress/dist/'
+
 export const shared = defineConfig({
     title: 'BLuau',
-    base: 'https://blockguard-sf.github.io/BLuau/',
-
+    base: basePath,
+// https://blockguard-sf.github.io/BLuau/
     rewrites: {
         'en/:rest*': ':rest*'
     },
@@ -58,7 +60,7 @@ export const shared = defineConfig({
     },
 
     themeConfig: {
-        logo: { src: 'blockguard-logo-mini.png', width: 24, height: 24 },
+        logo: { src: `${basePath}blockguard-logo-mini.png`, width: 24, height: 24 },
 
         socialLinks: [
             { icon: 'github', link: 'https://github.com/blockguard-sf/bluau' }
@@ -80,10 +82,7 @@ export const shared = defineConfig({
       plugins: [
         groupIconVitePlugin({
           customIcon: {
-            vitepress: localIconLoader(
-              import.meta.url,
-              '../../public/blockguard-logo-mini.png'
-            ),
+            vitepress: 'blockguard-logo-mini.png)',
             firebase: 'logos:firebase'
           }
         })

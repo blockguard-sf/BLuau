@@ -59,11 +59,11 @@ local unittest = BLuau.unittest -- Importing unittest
 
 ### Standard Library
 
-- [1. Data Persistence](data-persistence/index.md)
-   - [1.1. rbxdss — Data Store Management](data-persistence/rbxdss.md)
-   - [1.2. authz — Client Authorization Management](data-persistence/authz.md)
-- [2. Generic Operating System Services](allos/index.md)
-   - [2.1. logging — Advanced Logging](allos/logging.md)
+- [1. Data Persistence](data-persistence/index.html)
+   - [1.1. rbxdss — Data Store Management](data-persistence/rbxdss.html)
+   - [1.2. authz — Client Authorization Management](data-persistence/authz.html)
+- [2. Generic Operating System Services](allos/index.html)
+   - [2.1. logging — Advanced Logging](allos/logging.html)
 - [3. Development Tools]()
    - [3.1. unittest — Unit Testing Framework]()
    - [3.2. unittest.loader — Dynamic Test Case Loading]()

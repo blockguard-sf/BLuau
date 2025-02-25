@@ -1,19 +1,19 @@
 import { DefaultTheme, defineConfig } from 'vitepress'
 
 export const fr = defineConfig({
-    lang: 'fr',
+    lang: 'fr/index.md',
     description: 'Une Bibliothèque Open Source Pour Roblox.',
 
     themeConfig: {
         nav: nav(),
 
         sidebar: {
-            'https://blockguard-sf.github.io/BLuau/fr/whatsnew/': { base: 'https://blockguard-sf.github.io/BLuau/fr/whatsnew/', items: sidebarWhatsNew() },
-            'https://blockguard-sf.github.io/BLuau/fr/api-reference/': { base: 'https://blockguard-sf.github.io/BLuau/fr/api-reference/', items: sidebarAPIReference() }
+            '/fr/whatsnew/': { base: '/fr/whatsnew/', items: sidebarWhatsNew() },
+            '/fr/api-reference/': { base: '/fr/api-reference/', items: sidebarAPIReference() }
         },
 
         editLink: {
-            pattern: 'https://github.com/blockguard-sf/bluau/edit/main/Docs/:path',
+            pattern: 'https://github.com/blockguard-sf/bluau/edit/master/docs/:path',
             text: 'Modifier cette page sur GitHub'
         },
 
@@ -53,13 +53,13 @@ function nav() {
     return [
         {
             text: 'Nouveautés?',
-            link: 'https://blockguard-sf.github.io/BLuau/fr/whatsnew/index',
-            activeMarch: 'https://blockguard-sf.github.io/BLuau/whatsnew/'
+            link: '/fr/whatsnew/index.html',
+            activeMarch: '/fr/whatsnew/'
         },
         {
             text: 'Référence API',
-            link: 'https://blockguard-sf.github.io/BLuau/fr/api-reference/index',
-            activeMarch: 'https://blockguard-sf.github.io/BLuau/api-reference/'
+            link: '/fr/api-reference/index.html',
+            activeMarch: '/fr/api-reference/'
         },
         {
             text: 'v1.0',
@@ -83,8 +83,8 @@ function sidebarWhatsNew() {
             text: 'Docs Par Versions',
             collapsed: false,
             items: [
-                { text: 'BLuau 1.1 (en développement)', link: '1.1' },
-                { text: 'BLuau 1.0 (stable)', link: '1.0' }
+                { text: 'BLuau 1.1 (en développement)', link: '1.1.html' },
+                { text: 'BLuau 1.0 (stable)', link: '1.0.html' }
             ]
         }
     ]
@@ -98,17 +98,17 @@ function sidebarAPIReference() {
             items: [
                 { 
                     text: '1. Persistance des Données', 
-                    link: 'data-persistence/index',
+                    link: 'data-persistence/index.html',
                     items: [
-                        { text: '1.1. rbxdss', link: 'data-persistence/rbxdss' },
-                        { text: '1.2. authz', link: 'data-persistence/authz' },
+                        { text: '1.1. rbxdss', link: 'data-persistence/rbxdss.html' },
+                        { text: '1.2. authz', link: 'data-persistence/authz.html' },
                     ]
                 },
                 { 
                     text: '2. Services Génériques de Système D\'Exploitation', 
-                    link: 'allos/index',
+                    link: 'allos/index.html',
                     items: [
-                        { text: '2.1. logging', link: 'allos/logging' },
+                        { text: '2.1. logging', link: 'allos/logging.html' },
                     ]
                 },
                 { 

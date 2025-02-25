@@ -14,7 +14,7 @@ It assigns and manages authorizations based on client roles.
 > [!Note]
 > [Authz](#authz--client-authorization-management) only manages the assignment of permissions and does not enforce permissions.
 
-To function properly, [authz](#authz--client-authorization-management) relies on the [rbxdss](rbxdss) module. This means that the [rbxdss usage conditions](rbxdss#information) also apply to this module.
+To function properly, [authz](#authz--client-authorization-management) relies on the [rbxdss](rbxdss.html) module. This means that the [rbxdss usage conditions](rbxdss.html#information) also apply to this module.
 
 ## Configuration
 
