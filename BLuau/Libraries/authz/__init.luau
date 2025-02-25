@@ -60,7 +60,7 @@ function Module:assignPermssionsFromGroup(player: Player): ()
 end
 
 --- Adds a permission to the specified player.
-function Module:addPermission(player: Player, permission: any): boolean
+function Module:addPermission(player: Player, permission: string): boolean
 	local success: boolean, result: nil = pcall(function(): ()
 		Handlers:addPermission(player, permission)
 	end)
