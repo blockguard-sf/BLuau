@@ -17,7 +17,7 @@ hero:
       text: Référence API
       link: fr/api-reference/index
   image:
-    src: /ressources/arts/blockguard-logo.png
+    src: /blockguard-logo.png
     alt: BLuau
 
 features:
