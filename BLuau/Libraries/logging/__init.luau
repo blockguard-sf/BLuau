@@ -29,9 +29,9 @@ end
 
 --- Processes a log entry with the given source and message.
 --- Constructs the log entry and returns it, or an error message if processing fails.
-local function __processLog(source: string, message: string): string
-	local logEntry, _ = Handlers:__construct(source, message)
-	return logEntry or "Log processing failed."
+local function __processLog(source: string, message: string, levelName: string?, callerInfo: table?): string
+    local logEntry = if levelName ~= nil and callerInfo ~= nil then Handlers:__constructError(source, message, levelName, callerInfo) else Handlers:__construct(source, message)
+    return logEntry or "Log processing failed."
 end
 
 local Module = {}
@@ -72,15 +72,22 @@ end
 function Module.log(message: string, levelName: string): table
 	local self = setmetatable({
 		source = __recoverSide(),
-		levelIndex = __isValidLevel(levelName),
+		levelIndex = __isValidLevel(levelName)
 	}, Module)
 
 	if self.levelIndex and self.levelIndex >= Module.__threshold then
-		self.logEntry = __processLog(self.source, message)
-		if self.logEntry and self.levelIndex >= Handlers:GetLevel("WARN") then
-			warn(self.logEntry)
-		else
-			print(self.logEntry)
+		local callerInfo: { lineNumber: unknown, scriptObject: unknown } = {
+			scriptObject = debug.info(2, "s"),
+			lineNumber = debug.info(2, "l"),
+			rawTrace = debug.traceback("", 2)
+		}
+		self.logEntry = if levelName == "ERROR" then __processLog(self.source, message, levelName, callerInfo) else __processLog(self.source, message)
+		if self.logEntry then
+			if self.levelIndex == Handlers:GetLevel("WARN") then
+				warn(self.logEntry)
+			else
+				print(self.logEntry)
+			end
 		end
 		if Module.__logger then
 			Logger:SetLog(levelName, self.logEntry)

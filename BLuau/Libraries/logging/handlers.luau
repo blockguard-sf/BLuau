@@ -66,6 +66,22 @@ function Handlers:__construct(source: string, message: string): string & table
 	return Handlers.__internal.formatString("[%s] [%s] - %s", instance.timestamp, source, message), instance
 end
 
+--- Construct a new log entry with the given source, message, priority level, and initial script information.
+--- Includes a timestamp in predefined format.
+function Handlers:__constructError(source: string, message: string, levelName: string, callerInfo): (string, nil)
+	local instance = setmetatable({
+		timestamp = __timestamp(),
+		source = if source == "SERVER" then "Script" else "LocalScript",
+		callerInfo = callerInfo
+	}, Handlers)
+
+	if type(source) ~= "string" or type(message) ~= "string" then
+		warn("[LOGGING] - Invalid input types for source or message or levelName.")
+		return "Invalid log construction", nil
+	end
+	return Handlers.__internal.formatString("[%s] %s - %s: \"%s.luau\", Line: %s\n		Message: \"%s\"\n		Stack Trace: %s", string.upper(levelName), instance.timestamp, instance.source, instance.callerInfo.scriptObject, instance.callerInfo.lineNumber, message, instance.callerInfo.rawTrace), instance
+end
+
 --- Adds a new log level with the specified index.
 --- Automatically adjust index if a conflict exists and auto-correction is enabled.
 function Handlers:__addLevel(level: string, index: number, autoCorrect: boolean?): boolean & table
