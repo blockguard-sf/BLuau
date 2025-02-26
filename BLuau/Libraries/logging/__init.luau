@@ -83,7 +83,7 @@ function Module.log(message: string, levelName: string): table
 		}
 		self.logEntry = if levelName == "ERROR" then __processLog(self.source, message, levelName, callerInfo) else __processLog(self.source, message)
 		if self.logEntry then
-			if self.levelIndex == Handlers:GetLevel("WARN") then
+			if self.levelIndex >= Handlers:GetLevel("WARN") then
 				warn(self.logEntry)
 			else
 				print(self.logEntry)
