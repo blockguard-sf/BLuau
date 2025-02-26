@@ -1,4 +1,4 @@
-This is BLuau version 1.0.1
+This is BLuau version 1.1.0
 ============================
 
 **BLuau** is a Roblox package library manager
@@ -82,11 +82,11 @@ $ cp /path/to/bluau/BLuau /path/to/replicatedstorage/of/your/project/
 
 ## What's New
 
-We have a full overview of the changes in the [What's New in BLuau 1.0](https://blockguard-sf.github.io/BLuau/whatsnew/1.0) document.
+We have a full overview of the changes in the [What's New in BLuau 1.1](https://blockguard-sf.github.io/BLuau/whatsnew/1.1) document.
 
 ## Documentation
 
-[Documentation for BLuau 1.0](https://blockguard-sf.github.io/BLuau/whatsnew/1.0) is online, updated daily.
+[Documentation for BLuau 1.0](https://blockguard-sf.github.io/BLuau/whatsnew/1.1) is online, updated daily.
 
 ## Copyright and License Information
 
