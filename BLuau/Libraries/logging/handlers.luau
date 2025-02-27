@@ -10,10 +10,10 @@ To use, simply 'require(logging.handlers)' and log away!
 local Handlers = {}
 Handlers.__internal = Handlers
 Handlers.__levels = {
-	["DEBUG"] = 0,
-	["INFO"] = 1,
-	["WARN"] = 2,
-	["ERROR"] = 3,
+	["DEBUG"] = {index = 0, canWarn = false},
+	["INFO"] = {index = 1, canWarn = false},
+	["WARN"] = {index = 2, canWarn = true},
+	["ERROR"] = {index = 3, canWarn = true},
 }
 Handlers.__internal = {
 	timestamp = os.date,
@@ -84,10 +84,11 @@ end
 
 --- Adds a new log level with the specified index.
 --- Automatically adjust index if a conflict exists and auto-correction is enabled.
-function Handlers:__addLevel(level: string, index: number, autoCorrect: boolean?): boolean & table
+function Handlers:__addLevel(level: string, index: number, autoCorrect: boolean?, canWarn: boolean?): boolean & table
 	local instance = setmetatable({
 		level = string.upper(level),
 		autoCorrect = autoCorrect or false,
+		canWarn = canWarn or false
 	}, Handlers)
 
 	instance.validLevel = __isValidLevel(instance.level, index, instance.autoCorrect)
@@ -95,7 +96,7 @@ function Handlers:__addLevel(level: string, index: number, autoCorrect: boolean?
 		instance.level = instance.validLevel["Level"]
 		instance.index = instance.validLevel["Index"]
 
-		Handlers.__levels[instance.level] = instance.index
+		Handlers.__levels[instance.level] = {index = instance.index, canWarn = canWarn}
 		return true, instance
 	end
 	warn("[LOGGING] - Failed to add new log level: " .. instance.level)

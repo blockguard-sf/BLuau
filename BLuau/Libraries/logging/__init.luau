@@ -18,7 +18,7 @@ local function __recoverSide(): string
 end
 
 local function __isValidLevel(levelName: string): number | boolean
-	local validLevel = Handlers:GetLevel(levelName)
+	local validLevel = Handlers:GetLevel(levelName).index
 	if type(validLevel) == "number" then
 		return validLevel
 	end
@@ -84,7 +84,7 @@ function Module.log(message: string, levelName: string): table
 			return false
 		end
 
-		if self.levelIndex >= Module.__threshold or self.levelIndex == Module.__debugLevel and Module.__debugMessage then
+		if self.levelIndex >= Module.__threshold.index or self.levelIndex == Module.__debugLevel and Module.__debugMessage then
 		    local callerInfo: { lineNumber: unknown, scriptObject: unknown } = {
 			    scriptObject = debug.info(2, "s"),
 			    lineNumber = debug.info(2, "l"),
@@ -92,7 +92,7 @@ function Module.log(message: string, levelName: string): table
 		    }
 		    self.logEntry = if levelName == "ERROR" then __processLog(self.source, message, levelName, callerInfo) else __processLog(self.source, message)
 		    if self.logEntry then
-			    if self.levelIndex >= Handlers:GetLevel("WARN") then 
+			    if Handlers:GetLevel(levelName).canWarn then 
 					warn(self.logEntry) 
 				else 
 					print(self.logEntry) 
@@ -135,8 +135,8 @@ end
 
 --- Adds a new log level with the specified index.
 --- Automatically adjusts priority if a conflict exists and autoCorrect is enabled.
-function Module:__addLevel(level: string, index: number, autoCorrect: boolean?): boolean
-	local success, result: nil = Handlers:__addLevel(level, index, autoCorrect)
+function Module:__addLevel(level: string, index: number, autoCorrect: boolean?, canWarn: boolean?): boolean
+	local success, result: nil = Handlers:__addLevel(level, index, autoCorrect, canWarn)
 	if not success then
 		warn("[LOGGING] - Failed to add log level: " .. result)
 	end
