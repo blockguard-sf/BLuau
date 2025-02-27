@@ -40,6 +40,10 @@ Module.__levels = Handlers.__levels
 Module.__threshold = Handlers:GetLevel("INFO")
 Module.__logger = true
 
+Module.__debugLevel = Handlers:GetLevel("DEBUG")
+Module.__autoDebugMode = true
+Module.__debugMessage = if Module.__autoDebugMode and RunService:IsStudio() then true else false
+
 local function __getLevelName(levelIndex: string): string | boolean
 	for name, index in Handlers:GetLevel() do
 		if index == levelIndex then
@@ -75,25 +79,58 @@ function Module.log(message: string, levelName: string): table
 		levelIndex = __isValidLevel(levelName)
 	}, Module)
 
-	if self.levelIndex and self.levelIndex >= Module.__threshold then
-		local callerInfo: { lineNumber: unknown, scriptObject: unknown } = {
-			scriptObject = debug.info(2, "s"),
-			lineNumber = debug.info(2, "l"),
-			rawTrace = debug.traceback("", 2)
-		}
-		self.logEntry = if levelName == "ERROR" then __processLog(self.source, message, levelName, callerInfo) else __processLog(self.source, message)
-		if self.logEntry then
-			if self.levelIndex >= Handlers:GetLevel("WARN") then
-				warn(self.logEntry)
-			else
-				print(self.logEntry)
+	if self.levelIndex then 
+		if not Module.__debugMessage and self.levelIndex == Module.__debugLevel then 
+			return false
+		end
+
+		if self.levelIndex >= Module.__threshold or self.levelIndex == Module.__debugLevel and Module.__debugMessage then
+		    local callerInfo: { lineNumber: unknown, scriptObject: unknown } = {
+			    scriptObject = debug.info(2, "s"),
+			    lineNumber = debug.info(2, "l"),
+			    rawTrace = debug.traceback("", 2)
+		    }
+		    self.logEntry = if levelName == "ERROR" then __processLog(self.source, message, levelName, callerInfo) else __processLog(self.source, message)
+		    if self.logEntry then
+			    if self.levelIndex >= Handlers:GetLevel("WARN") then 
+					warn(self.logEntry) 
+				else 
+					print(self.logEntry) 
+				end
+		    end
+		    if Module.__logger then 
+				Logger:SetLog(levelName, self.logEntry) 
 			end
-		end
-		if Module.__logger then
-			Logger:SetLog(levelName, self.logEntry)
-		end
+	    end
 	end
 	return self
+end
+
+-- Enable automatic debug mode detection based on Roblox Studio
+function Module:setAutoDebugMode(value: boolean): ()
+	if type(value) == "boolean" then
+		Module.__autoDebugMode = value
+		return
+	end
+	warn(`[LOGGING] - Invalid value: {value}`)
+end
+
+-- Enable/Disable debug messages separately from standard log levels
+function Module:setDebugMessagesEnabled(value: boolean): ()
+	if type(value) == "boolean" then
+		Module.__debugMessage = value
+		return
+	end
+	warn(`[LOGGING] - Invalid value: {value}`)
+end
+
+-- Define a custom debug level
+function Module:setDebugLevel(levelName: string): ()
+	if type(Handlers:GetLevel(levelName)) == "number" then
+		Module.__debugLevel = Handlers:GetLevel(levelName)
+		return
+	end
+	warn(`[LOGGING] - Invalid log level: {levelName}`)
 end
 
 --- Adds a new log level with the specified index.
