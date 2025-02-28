@@ -16,7 +16,7 @@ local logging: Module = require(LIBRARIES_DIRECTORY:WaitForChild("logging").__in
 local function __getDataStore(dataStore: string): DataStore?
 	if typeof(dataStore) ~= "string" or dataStore == "" then
 		logging.log("Invalid DataStore name provided.", "ERROR")
-		return nil
+		return false
 	end
 	return DataStoreService:GetDataStore(dataStore)
 end
@@ -42,7 +42,6 @@ end
 --- Saves data asynchronously for a specific player and data store.
 --- Logs the process and handles any errors that occur.
 function Module:SetAsync(player: Player, datastore: string, objectValue: any): boolean & (nil | string)
-	print(logging.__debugMessage)
 	local store: DataStore? = __getDataStore(datastore)
 	logging.log("Data backup in progress... ", "DEBUG")
 
@@ -65,6 +64,31 @@ function Module:SetAsync(player: Player, datastore: string, objectValue: any): b
 
 	logging.log("The data has been saved successfully!", "DEBUG")
 	return true
+end
+
+function Module:RemoveAsync(player: Player, dataStore): string
+	local store = __getDataStore(dataStore)
+	if not store then 
+		return "Invalid DataStore"
+	end
+
+	logging.log(`Deleting data {dataStore} at {player}.`, "DEBUG")
+
+	local success, removedValue = pcall(function(): (any, DataStoreKeyInfo)
+		logging.log("Suppression des données ", "DEBUG")
+		return store:RemoveAsync(player.UserId)
+	end)
+
+	if not success then
+		logging.log(`{removedValue}`, "ERROR")
+		return false
+	end
+
+	if Module.CacheEnabled and Module.Cache[dataStore] and Module.Cache[dataStore][player.UserId] then
+		logging.log("Deleting data in cache.", "DEBUG")
+		Module.Cache[dataStore][player.UserId] = nil
+	end
+	return
 end
 
 --- Retrieves data asynchronously for a specific player and data store.
