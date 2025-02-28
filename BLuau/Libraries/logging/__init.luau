@@ -80,11 +80,11 @@ function Module.log(message: string, levelName: string): table
 	}, Module)
 
 	if self.levelIndex then 
-		if not Module.__debugMessage and self.levelIndex == Module.__debugLevel then 
+		if not Module.__debugMessage and self.levelIndex == Module.__debugLevel.index then 
 			return false
 		end
 
-		if self.levelIndex >= Module.__threshold.index or self.levelIndex == Module.__debugLevel and Module.__debugMessage then
+		if self.levelIndex >= Module.__threshold.index or self.levelIndex == Module.__debugLevel.index and Module.__debugMessage then
 		    local callerInfo: { lineNumber: unknown, scriptObject: unknown } = {
 			    scriptObject = debug.info(2, "s"),
 			    lineNumber = debug.info(2, "l"),
